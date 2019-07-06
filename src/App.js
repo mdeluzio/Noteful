@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom';
+import DUMMYSTORE from './dummy-store';
+import Sidebar from './Sidebar/Sidebar';
+import NoteList from './NoteList/NoteList';
+import './App.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      DUMMYSTORE
+    }
+  }
+  render() {
+    return (
+      <div className='App'>
+        <header className='App__heading'>
+          <Link 
+            to='/'
+            className='title-link'
+          >
+            Noteful
+          </Link>
+        </header>
+        <div className='main-container'>
+          <section className="Sidebar">
+            <Route
+              exact path='/'
+              component={Sidebar} 
+            />
+          </section>
+          <main>
+            <Route
+              exact path='/'
+              component={NoteList}
+            />
+          </main>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
