@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './SidebarFolder.css';
 
 
@@ -12,9 +12,15 @@ class SidebarFolder extends Component {
                 <ul className='folder-list'>
                     {this.props.folder.map(folder => 
                         <li className='folder-li' key={folder.id}>
-                            <Link className='folder-link' to={`/folder/${folder.id}`}>
-                                {folder.name} {folder.id === this.props.routeProps.match.params.folderId ?  '(Match)' : null}
-                            </Link>
+                            <NavLink 
+                                className='folder-link' 
+                                to={`/folder/${folder.id}`}
+                                activeStyle={{
+                                    backgroundColor: 'lightblue'
+                                }}
+                            >
+                                {folder.name}
+                            </NavLink>
                         </li>
                     )}
                 </ul>
