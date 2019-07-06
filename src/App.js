@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import DUMMYSTORE from './dummy-store';
-import Sidebar from './Sidebar/Sidebar';
-import NoteList from './NoteList/NoteList';
+import MainSidebar from './MainSidebar/MainSidebar';
+import MainNoteList from './MainNoteList/MainNoteList';
+import SidebarFolder from './SidebarFolder/SidebarFolder';
+import NoteListFolder from './NoteListFolder/NoteListFolder';
+import NoteListNote from './NoteListNote/NoteListNote';
 import './App.css'
+import SidebarNote from './SidebarNote/SidebarNote';
 
 class App extends Component {
   constructor(props) {
@@ -27,13 +31,57 @@ class App extends Component {
           <section className="Sidebar">
             <Route
               exact path='/'
-              component={Sidebar} 
+              render={() =>
+                <MainSidebar 
+                  folder={this.state.DUMMYSTORE.folders} 
+                />
+              }
+            />
+            <Route 
+              path='/folder/:folderId'
+              render={(routeProps) =>
+                <SidebarFolder
+                  routeProps={routeProps}
+                  folder={this.state.DUMMYSTORE.folders}
+                />
+              }
+            />
+            <Route
+              path='/note/:noteId'
+              render={(routeProps) => 
+                <SidebarNote
+                  folder={this.state.DUMMYSTORE.folders}
+                  notes={this.state.DUMMYSTORE.notes}
+                  routeProps={routeProps}
+                  onClickGoBack={() => routeProps.history.goBack()}
+                />} 
             />
           </section>
           <main>
             <Route
               exact path='/'
-              component={NoteList}
+              render={() =>
+                <MainNoteList
+                  notes={this.state.DUMMYSTORE.notes} 
+                />}
+            />
+            <Route 
+              path='/folder/:folderId'
+              render={(routeProps) => 
+                <NoteListFolder
+                  routeProps={routeProps}
+                  notes={this.state.DUMMYSTORE.notes}
+                />
+              }
+            />
+            <Route 
+              path='/note/:noteId'
+              render={(routeProps) =>
+                <NoteListNote
+                  notes={this.state.DUMMYSTORE.notes}
+                  routeProps={routeProps} 
+                />  
+              } 
             />
           </main>
         </div>

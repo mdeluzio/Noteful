@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
-import DUMMYSTORE from '../dummy-store';
 import { Link } from 'react-router-dom';
-import './NoteList.css';
+import { format } from 'date-fns';
+import './NoteListFolder.css';
 
-class NoteList extends Component {
+class NoteListFolder extends Component {
     render() {
+        const filteredProps = this.props.notes.filter(note => 
+                note.folderId === this.props.routeProps.match.params.folderId);
+                
         return (
             <div className='NoteList'>
                 <ul className='NoteList-list'>
-                    {DUMMYSTORE.notes.map(note => 
+                    {filteredProps.map(note => 
                         <li className='NoteList-li' key={note.id}>
                             <Link to={`/note/${note.id}`}>
                                 {note.name}
                             </Link>
-                            <p>Date modified on {note.modified}</p>
+                            <p>Modified on {format(note.modified, 'DD MMM YYYY')}</p>
                         </li>
                     )}
                 </ul>
@@ -22,4 +25,4 @@ class NoteList extends Component {
     }
 }
 
-export default NoteList;
+export default NoteListFolder;
