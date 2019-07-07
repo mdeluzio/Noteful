@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import './SidebarNote.css';
+import Context from '../context';
 
 
 class SidebarNote extends Component {
-    
+    static contextType = Context;
+
+    handleClickGoBack = () => {
+        this.props.history.goBack()
+        };
     render() {
-        const currentNote = this.props.notes.find(note => 
-            note.id === this.props.routeProps.match.params.noteId)
-        const currentFolder = this.props.folder.find(folder => 
+        const currentNote = this.context.notes.find(note => 
+            note.id === this.props.match.params.noteId)
+        const currentFolder = this.context.folders.find(folder => 
             folder.id === currentNote.folderId).name;
         return (
             <div className='Sidebar-div'>
                 <h2 className='Sidebar-title'>Current Folder</h2>
-                <button type='button' onClick={this.props.onClickGoBack}>
+                <button type='button' onClick={this.handleClickGoBack}>
                      Go Back
                 </button>
                 <ul className='folder-list'>
