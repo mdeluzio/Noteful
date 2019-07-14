@@ -2,40 +2,20 @@ import React, { Component } from 'react';
 import './NoteListNote.css';
 import { format } from 'date-fns';
 import Context from '../context';
+import PropTypes from 'prop-types';
 
 class NoteListNote extends Component {
     static contextType = Context;
 
     handleClickDelete = e => {
-        e.preventDefault();
-        const noteId = e.target.value;
+        this.props.handleClickDelete(e, () => this.props.routeProps.history.push('/'))
+        this.context.deleteNote(e.target.value);
 
-        fetch(`http://localhost:9090/notes/${noteId}`, {
-            method: 'DELETE',
-            headers: {
-              'content-type': 'application/json'
-            },
-          })
-          .then(res => {
-              if(!res.ok) {
-                  return res.json().then(error => {
-                      throw error
-                    })
-                }
-                return res.json()
-            })
-            .then(() => {
-                this.context.deleteNote(noteId);
-                this.props.history.push('/')
-            })
-            .catch(error => {
-                console.error({ error })
-              })
     }
 
     render() {
         const currentNote = this.context.notes.find(note => 
-            note.id === this.props.match.params.noteId);
+            note.id === this.props.routeProps.match.params.noteId);
         const listItem = currentNote ? 
             <li className='NoteList-li' key={currentNote.id}>
                 {currentNote.name}
@@ -57,6 +37,11 @@ class NoteListNote extends Component {
             </div>
         )
     }
+}
+
+NoteListNote.propTypes = {
+    handleClickDelete: PropTypes.func,
+    routeProps: PropTypes.object
 }
 
 export default NoteListNote;

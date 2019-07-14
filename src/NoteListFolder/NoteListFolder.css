@@ -1,0 +1,11 @@
+.add-note-button {
+    -moz-user-select: text;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 1.3em;
+	margin: 0;
+	padding: 4px;
+    text-align: left;
+    border: 1px solid black;
+}

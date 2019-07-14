@@ -52,6 +52,14 @@ class MainNoteList extends Component {
                             </button>
                         </li>
                     )}
+                    <li>
+                        <Link 
+                            className='add-note-button'
+                            to={'/addnote'}
+                        >
+                            Add Note
+                        </Link>
+                    </li>
                 </ul>
             </div>
         )

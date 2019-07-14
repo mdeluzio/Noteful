@@ -14,16 +14,17 @@ class SidebarNote extends Component {
         let currentFolder = '';
 
         const currentNote = this.context.notes.find(note => 
-            note.id === this.props.match.params.noteId)
+            note.id === this.props.match.params.noteId);
+    
         if(currentNote) {
          currentFolder = this.context.folders.find(folder => 
             folder.id === currentNote.folderId).name;
-        } currentFolder = 'None'
+        } 
             
         return (
             <div className='Sidebar-div'>
                 <h2 className='Sidebar-title'>Current Folder</h2>
-                <button type='button' onClick={this.handleClickGoBack}>
+                <button className='go-back-button' type='button' onClick={this.handleClickGoBack}>
                      Go Back
                 </button>
                 <ul className='folder-list'>

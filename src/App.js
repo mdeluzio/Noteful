@@ -5,9 +5,14 @@ import MainNoteList from './MainNoteList/MainNoteList';
 import SidebarFolder from './SidebarFolder/SidebarFolder';
 import NoteListFolder from './NoteListFolder/NoteListFolder';
 import NoteListNote from './NoteListNote/NoteListNote';
-import './App.css'
+import AddFolder from './AddFolder/AddFolder';
+import AddNote from './AddNote/AddNote';
 import SidebarNote from './SidebarNote/SidebarNote';
 import Context from './context';
+import FolderListError from './FolderListError/FolderListError';
+import NoteListError from './NoteListError/NoteListError';
+import PostError from './PostError/PostError';
+import './App.css';
 
 class App extends Component {
   constructor(props) {
@@ -56,14 +61,50 @@ class App extends Component {
     })
   }
 
+  handleClickDelete = (e, callback) => {
+    e.preventDefault();
+    const noteId = e.target.value;
+
+    fetch(`http://localhost:9090/notes/${noteId}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        },
+      })
+      .then(res => {
+          if(!res.ok) {
+              return res.json().then(error => {
+                  throw error
+                })
+            }
+            return res.json()
+        })
+        .then(() => {
+           if(callback) {
+             callback();
+           }
+        })
+        .catch(error => {
+            console.error({ error })
+        })
+
+  }
   handleDeleteNote = noteId => {
     this.setState({
         notes: this.state.notes.filter(note => note.id !== noteId)
     });
   };
 
-  handlePush = () => {
-    this.props.history.push('/')
+  handleAddFolder = newFolder => {
+    this.setState({
+      folders: [...this.state.folders, newFolder]
+    })
+  }
+
+  handleAddNote = newNote => {
+    this.setState({
+      notes: [...this.state.notes, newNote]
+    })
   }
  
 
@@ -72,7 +113,8 @@ class App extends Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.handleDeleteNote,
-      handlePush: this.handlePush
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote
     };
 
     return (
@@ -88,32 +130,50 @@ class App extends Component {
           </header>
           <div className='main-container'>
             <section className="Sidebar">
-              <Route
-                exact path='/'
-                component={MainSidebar}
-              />
-              <Route 
-                path='/folder/:folderId'
-                component={SidebarFolder}
-              />
-              <Route
-                path='/note/:noteId'
-                component={SidebarNote}
-              />
+              <FolderListError>
+                <Route
+                  exact path='/'
+                  component={MainSidebar}
+                />
+                <Route 
+                  path={['/folder/:folderId', '/addfolder', '/addnote']}
+                  component={SidebarFolder}
+                />
+                <Route
+                  path='/note/:noteId'
+                  component={SidebarNote}
+                />
+              </FolderListError>
             </section>
             <main>
-              <Route
-                exact path='/'
-                component={MainNoteList}
-              />
-              <Route 
-                path='/folder/:folderId'
-                component={NoteListFolder}
-              />
-              <Route 
-                path='/note/:noteId'
-                component={NoteListNote}
-              />
+              <NoteListError>
+                <Route
+                  exact path='/'
+                  component={MainNoteList}
+                />
+                <Route 
+                  path='/folder/:folderId'
+                  component={NoteListFolder}
+                />
+                <Route 
+                  path='/note/:noteId'
+                  render= {(routeProps) =>
+                  <NoteListNote
+                    handleClickDelete={this.handleClickDelete}
+                    routeProps={routeProps} />
+                  }
+                />
+              </NoteListError>
+              <PostError>
+                <Route
+                path={'/addfolder'}
+                component={AddFolder}
+                />
+                <Route
+                  path={'/addnote'}
+                  component={AddNote}
+                />
+              </PostError>
             </main>
           </div>
         </div>

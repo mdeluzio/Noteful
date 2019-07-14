@@ -1,0 +1,11 @@
+
+
+input {
+    margin: 6px;
+}
+
+.submit-button {
+    display: block;
+    width: 10em;
+    height: 2em;
+}

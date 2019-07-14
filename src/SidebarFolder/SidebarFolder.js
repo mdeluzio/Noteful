@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './SidebarFolder.css';
 import Context from '../context';
 
@@ -25,6 +26,15 @@ class SidebarFolder extends Component {
                             </NavLink>
                         </li>
                     )}
+
+                    <li className='folder-li'>
+                        <Link 
+                            className='add-folder-button'
+                            to={'/addfolder'}
+                        >
+                            Add Folder
+                        </Link>
+                    </li>
                 </ul>
             </div>
         )
