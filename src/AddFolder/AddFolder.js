@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './AddFolder.css';
+import PropTypes from 'prop-types';
 
 class AddFolder extends Component {
     constructor(props) {
@@ -73,6 +74,11 @@ class AddFolder extends Component {
             </div>
         )
     }
+}
+
+AddFolder.propTypes = {
+    handleAddFolder: PropTypes.func,
+    routeProps: PropTypes.object
 }
 
 export default AddFolder;
