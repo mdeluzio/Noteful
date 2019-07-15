@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import Context from '../context';
 import './AddFolder.css';
 
 class AddFolder extends Component {
-    static contextType = Context;
-
     constructor(props) {
         super(props);
         this.state= {
@@ -43,9 +40,9 @@ class AddFolder extends Component {
                 return res.json()
             })
             .then((responseJson) => {
-                this.context.addFolder(responseJson)
+                this.props.handleAddFolder(responseJson)
             })
-            .then(this.props.history.push('/'))
+            .then(this.props.routeProps.history.push('/'))
             .catch(error => {
                 console.error({ error })
               })

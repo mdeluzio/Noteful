@@ -113,7 +113,6 @@ class App extends Component {
       notes: this.state.notes,
       folders: this.state.folders,
       deleteNote: this.handleDeleteNote,
-      addFolder: this.handleAddFolder,
       addNote: this.handleAddNote
     };
 
@@ -166,8 +165,11 @@ class App extends Component {
               </NoteListError>
               <PostError>
                 <Route
-                path={'/addfolder'}
-                component={AddFolder}
+                  path={'/addfolder'}
+                  render={(routeProps) => 
+                    <AddFolder
+                    handleAddFolder={this.handleAddFolder}
+                    routeProps={routeProps} />}
                 />
                 <Route
                   path={'/addnote'}
