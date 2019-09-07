@@ -51,7 +51,7 @@ class AddNote extends Component {
     handleAddNote = e => {
         e.preventDefault();
 
-        fetch(`http://localhost:9090/notes`, {
+        fetch(`http://localhost:8000/api/notes`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json'
@@ -59,7 +59,7 @@ class AddNote extends Component {
             body: JSON.stringify({
                 "modified": new Date(),
                 "name": this.state.name.value,
-                "folderId": this.state.folder.value,
+                "folderid": this.state.folder.value,
                 "content": this.state.content.value
             })
         })

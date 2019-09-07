@@ -11,7 +11,7 @@ class NoteListFolder extends Component {
         e.preventDefault();
         const noteId = e.target.value;
 
-        fetch(`http://localhost:9090/notes/${noteId}`, {
+        fetch(`http://localhost:8000/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
               'content-type': 'application/json'
@@ -35,7 +35,7 @@ class NoteListFolder extends Component {
 
     render() {
         const filteredContext = this.context.notes.filter(note => 
-                note.folderId === this.props.match.params.folderId);
+                note.folderid === this.props.match.params.folderid);
                 
         return (
             <div className='NoteList'>

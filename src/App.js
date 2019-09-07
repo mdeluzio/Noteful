@@ -24,7 +24,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:9090/folders')
+    fetch('http://localhost:8000/api/folders')
     .then(res => {
       if (!res.ok) {
         return res.json().then(error => {
@@ -42,7 +42,7 @@ class App extends Component {
       console.error(err)
     });
 
-    fetch('http://localhost:9090/notes')
+    fetch('http://localhost:8000/api/notes')
     .then(res => {
       if (!res.ok) {
         return res.json().then(error => {
@@ -65,7 +65,7 @@ class App extends Component {
     e.preventDefault();
     const noteId = e.target.value;
 
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`http://localhost:8000/api/notes/${noteId}`, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json'
@@ -135,7 +135,7 @@ class App extends Component {
                   component={MainSidebar}
                 />
                 <Route 
-                  path={['/folder/:folderId', '/addfolder', '/addnote']}
+                  path={['/folder/:folderid', '/addfolder', '/addnote']}
                   component={SidebarFolder}
                 />
                 <Route
@@ -151,7 +151,7 @@ class App extends Component {
                   component={MainNoteList}
                 />
                 <Route 
-                  path='/folder/:folderId'
+                  path='/folder/:folderid'
                   component={NoteListFolder}
                 />
                 <Route 

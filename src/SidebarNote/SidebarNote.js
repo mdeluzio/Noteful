@@ -18,7 +18,7 @@ class SidebarNote extends Component {
     
         if(currentNote) {
          currentFolder = this.context.folders.find(folder => 
-            folder.id === currentNote.folderId).name;
+            folder.id === currentNote.folderid).name;
         } 
             
         return (
