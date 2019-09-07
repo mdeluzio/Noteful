@@ -23,9 +23,6 @@ class NoteListFolder extends Component {
                       throw error
                     })
                 }
-                return res.json()
-            })
-            .then(() => {
                 this.context.deleteNote(noteId)
             })
             .catch(error => {
@@ -35,7 +32,7 @@ class NoteListFolder extends Component {
 
     render() {
         const filteredContext = this.context.notes.filter(note => 
-                note.folderid === this.props.match.params.folderid);
+                note.folderid === parseInt(this.props.match.params.folderid, 10));
                 
         return (
             <div className='NoteList'>

@@ -76,22 +76,19 @@ class App extends Component {
               return res.json().then(error => {
                   throw error
                 })
-            }
-            return res.json()
-        })
-        .then(() => {
-           if(callback) {
-             callback();
-           }
-        })
-        .catch(error => {
-            console.error({ error })
-        })
+          }
+          if(callback) {
+            callback();
+          }  
+      })
+      .catch(error => {
+        console.error({ error })
+      })
 
   }
   handleDeleteNote = noteId => {
     this.setState({
-        notes: this.state.notes.filter(note => note.id !== noteId)
+        notes: this.state.notes.filter(note => note.id !== parseInt(noteId, 10))
     });
   };
 

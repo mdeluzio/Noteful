@@ -15,7 +15,7 @@ class NoteListNote extends Component {
 
     render() {
         const currentNote = this.context.notes.find(note => 
-            note.id === this.props.routeProps.match.params.noteId);
+            note.id === parseInt(this.props.routeProps.match.params.noteId, 10));
         const listItem = currentNote ? 
             <li className='NoteList-li' key={currentNote.id}>
                 {currentNote.name}

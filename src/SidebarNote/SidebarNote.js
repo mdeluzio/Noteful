@@ -14,7 +14,7 @@ class SidebarNote extends Component {
         let currentFolder = '';
 
         const currentNote = this.context.notes.find(note => 
-            note.id === this.props.match.params.noteId);
+            note.id === parseInt(this.props.match.params.noteId, 10));
     
         if(currentNote) {
          currentFolder = this.context.folders.find(folder => 

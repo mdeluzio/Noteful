@@ -23,9 +23,6 @@ class MainNoteList extends Component {
                       throw error
                     })
                 }
-                return res.json()
-            })
-            .then(() => {
                 this.context.deleteNote(noteId)
             })
             .catch(error => {
