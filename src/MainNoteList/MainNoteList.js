@@ -11,7 +11,7 @@ class MainNoteList extends Component {
         e.preventDefault();
         const noteId = e.target.value;
 
-        fetch(`http://localhost:8000/api/notes/${noteId}`, {
+        fetch(`https://agile-island-09322.herokuapp.com/api/notes/${noteId}`, {
             method: 'DELETE',
             headers: {
               'content-type': 'application/json'

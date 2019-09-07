@@ -23,7 +23,7 @@ class AddFolder extends Component {
     handleAddFolder = (e) => {
         e.preventDefault();
         const foldername = this.state.folder.value;
-        fetch(`http://localhost:8000/api/folders`, {
+        fetch(`https://agile-island-09322.herokuapp.com/api/folders`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json'

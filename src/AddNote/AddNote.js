@@ -51,7 +51,7 @@ class AddNote extends Component {
     handleAddNote = e => {
         e.preventDefault();
 
-        fetch(`http://localhost:8000/api/notes`, {
+        fetch(`https://agile-island-09322.herokuapp.com/api/notes`, {
             method: 'POST',
             headers: {
               'content-type': 'application/json'
